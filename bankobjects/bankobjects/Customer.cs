@@ -25,7 +25,7 @@ namespace bankobjects
         //Methods
         private string Print()
         {
-            return _firstName + _lastName + _accountNumber;
+            return _firstName + " " + _lastName + ", " + _accountNumber;
         }
 
         public override string ToString()

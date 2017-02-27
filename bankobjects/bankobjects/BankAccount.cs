@@ -8,20 +8,26 @@ namespace bankobjects
 {
     public class BankAccount
     {
-        private string _accountNumber;
-        private string _accountEvents;
-        private double _balance;
+        public string _accountNumber;
+        private List<string> _accountEvents = new List<string>();
+        public double _balance;
 
         //Constructors
-        public BankAccount(string AccountNumber, string AccountEvents, double Balance)
+        public BankAccount(string AccountNumber)
         {
             _accountNumber = AccountNumber;
-            _accountEvents = AccountEvents;
-            _balance = Balance;
         }
 
         //Properties
 
         //Methods
+        public void NewEvent(string TimeStamp, string AccountNumber, double Sum)
+        {
+            if(AccountNumber == _accountNumber)
+            {
+                _accountEvents.Add(TimeStamp + ", " + Sum);
+                _balance += Sum;
+            }
+        }
     }
 }

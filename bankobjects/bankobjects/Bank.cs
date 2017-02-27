@@ -9,7 +9,7 @@ namespace bankobjects
     public class Bank
     {
         private string _name;
-        private List<string> _accounts;
+        public List<string> _accounts = new List<string>();
 
         //Constructors
         public Bank(string Name)
@@ -31,8 +31,9 @@ namespace bankobjects
             Random r = new Random();
             for (i = 0; i < 16; i++)
             {
-                sb.Append(r.Next(1, 10));
+                sb.Append(r.Next(0, 10));
             }
+            _accounts.Add(sb.ToString());
             return sb.ToString();
         }
     }
