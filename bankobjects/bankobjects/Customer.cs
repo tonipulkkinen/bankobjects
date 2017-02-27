@@ -10,7 +10,7 @@ namespace bankobjects
     {
         private string _firstName;
         private string _lastName;
-        private string _accountNumber;
+        public string _accountNumber;
 
         //Constructors
         public Customer(string FirstName, string LastName, string AccountNumber)

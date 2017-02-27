@@ -10,8 +10,10 @@ namespace bankobjects
     {
         static void Main(string[] args)
         {
-            string[] array = new string[0];
-            Bank Bank1 = new Bank("DanskeBank", array);
+            Bank Bank1 = new Bank("DanskeBank");
+            Customer Customer1 = new Customer("Hermanni", "Heiluja", Bank1.NewAccount());
+            Customer Customer2 = new Customer("Ihme", "Tyyppi", Bank1.NewAccount());
+            Customer Customer3 = new Customer("Joku", "Randomi", Bank1.NewAccount());
         }
     }
 }
