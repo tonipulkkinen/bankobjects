@@ -8,26 +8,37 @@ namespace bankobjects
 {
     public class Program
     {
-         public void Main(string[] args)
+         static void Main(string[] args)
         {
-            Bank Bank1 = new Bank("DanskeBank");
+            Random rnd = new Random();
+            Bank Bank = new Bank("DanskeBank");
+            List<Customer> customers = new List<Customer>();
+            customers.Add(new Customer("Hermanni", "Heiluja", Bank.NewAccount()));
+            customers.Add(new Customer("Ihme", "Tyyppi", Bank.NewAccount()));
+            customers.Add(new Customer("Joku", "Randomi", Bank.NewAccount()));
 
-            Customer Customer1 = new Customer("Hermanni", "Heiluja", Bank1.NewAccount());
-            BankAccount Account1 = new BankAccount(Customer1._accountNumber);
-            AccountEvent Event1 = new AccountEvent(DateTime.Today.ToString(), Account1._accountNumber, 500);
+            Bank.NewAccountEvent(customers[0].AccountNumber, new AccountEvent(new DateTime(2017, 1, 1), 1000));
+            Bank.NewAccountEvent(customers[1].AccountNumber, new AccountEvent(new DateTime(2017, 1, 1), 1000));
+            Bank.NewAccountEvent(customers[2].AccountNumber, new AccountEvent(new DateTime(2017, 1, 1), 1000));
 
-            Customer Customer2 = new Customer("Ihme", "Tyyppi", Bank1.NewAccount());
-            BankAccount Account2 = new BankAccount(Customer2._accountNumber);
-            AccountEvent Event2 = new AccountEvent(DateTime.Today.ToString(), Account2._accountNumber, 300);
-
-            Customer Customer3 = new Customer("Joku", "Randomi", Bank1.NewAccount());
-            BankAccount Account3 = new BankAccount(Customer3._accountNumber);
-            AccountEvent Event3 = new AccountEvent(DateTime.Today.ToString(), Account3._accountNumber, 1000);
+            for (int i = 0; i < 20; i++)
+            {
+                Bank.NewAccountEvent(customers[0].AccountNumber, new AccountEvent(new DateTime(2017, rnd.Next(1, 4), rnd.Next(1, 29)), Math.Round((rnd.NextDouble() * 100 * -1), 2)));
+                Bank.NewAccountEvent(customers[1].AccountNumber, new AccountEvent(new DateTime(2017, rnd.Next(1, 4), rnd.Next(1, 29)), Math.Round((rnd.NextDouble() * 100 * -1), 2)));
+                Bank.NewAccountEvent(customers[2].AccountNumber, new AccountEvent(new DateTime(2017, rnd.Next(1, 4), rnd.Next(1, 29)), Math.Round((rnd.NextDouble() * 100 * -1), 2)));
+            }
             
-            Console.WriteLine(Customer1.ToString() + ", " + Account1._balance);
-            Console.WriteLine(Customer2.ToString() + ", " + Account2._balance);
-            Console.WriteLine(Customer3.ToString() + ", " + Account3._balance);
+            ShowBalance(Bank, customers[0]);
+            ShowBalance(Bank, customers[1]);
+            ShowBalance(Bank, customers[2]);
             Console.ReadKey();
+        }
+        static void ShowBalance(Bank Bank, Customer Customer)
+        {
+            var balance = Bank.GetBalance(Customer.AccountNumber);
+            Console.WriteLine("{0}Balance: {1}",
+                Customer.ToString(),
+                balance);
         }
     }
 }

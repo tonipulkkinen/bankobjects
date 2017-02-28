@@ -9,32 +9,41 @@ namespace bankobjects
     public class Bank
     {
         private string _name;
-        public List<string> _accounts = new List<string>();
+        private List<BankAccount> _accounts;
+        private Random r = new Random();
 
         //Constructors
         public Bank(string Name)
         {
             _name = Name;
+            _accounts = new List<BankAccount>();
         }
 
         //Properties
 
         //Methods
-        public void AddAccount(string Account)
-        {
-            _accounts.Add(Account);
-        }
         public string NewAccount()
         {
-            StringBuilder sb = new StringBuilder("FI");
-            int i;
-            Random r = new Random();
-            for (i = 0; i < 16; i++)
+            string accountNumber = "FI";
+            
+            for (int i = 0; i < 16; i++)
             {
-                sb.Append(r.Next(0, 10));
+                accountNumber += r.Next(0, 10).ToString();
             }
-            _accounts.Add(sb.ToString());
-            return sb.ToString();
+            _accounts.Add(new BankAccount(accountNumber));
+            return accountNumber;
+        }
+        public bool NewAccountEvent(string accountNumber, AccountEvent Event)
+        {
+            return (from account in _accounts
+                    where account.AccountNumber == accountNumber
+                    select account).First().AddEvent(Event);
+        }
+        public double GetBalance(string AccountNumber)
+        {
+            return (from account in _accounts
+                    where account.AccountNumber == AccountNumber
+                    select account).FirstOrDefault().Balance;
         }
     }
 }

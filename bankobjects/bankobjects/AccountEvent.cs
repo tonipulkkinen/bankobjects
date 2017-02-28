@@ -8,20 +8,26 @@ namespace bankobjects
 {
     public class AccountEvent
     {
-        private string _timeStamp;
-        private string _accountNumber;
-        private double _sum;
+        private readonly DateTime _timeStamp;
+        private readonly double _sum;
 
         //Constructors
-        public AccountEvent(string TimeStamp, string AccountNumber,double Sum)
+        public AccountEvent(DateTime TimeStamp, double Sum)
         {
             _timeStamp = TimeStamp;
-            _accountNumber = AccountNumber;
             _sum = Sum;
-            BankAccount.NewEvent(_timeStamp, _accountNumber, _sum);
         }
 
         //Properties
+        public DateTime TimeStamp
+        {
+            get { return _timeStamp; }
+        }
+
+        public double Sum
+        {
+            get { return _sum; }
+        }
 
         //Methods
     }

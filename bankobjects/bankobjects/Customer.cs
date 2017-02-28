@@ -10,7 +10,7 @@ namespace bankobjects
     {
         private string _firstName;
         private string _lastName;
-        public string _accountNumber;
+        private string _accountNumber;
 
         //Constructors
         public Customer(string FirstName, string LastName, string AccountNumber)
@@ -21,16 +21,29 @@ namespace bankobjects
         }
 
         //Properties
-
-        //Methods
-        private string Print()
+        public string FirstName
         {
-            return _firstName + " " + _lastName + ", " + _accountNumber;
+            get { return _firstName; }
+            set { _firstName = value; }
+        }
+        public string LastName
+        {
+            get { return _lastName; }
+            set { _lastName = value; }
+        }
+        public string AccountNumber
+        {
+            get { return _accountNumber; }
+            set { _accountNumber = value; }
         }
 
+        //Methods
         public override string ToString()
         {
-            return Print();
+            return string.Format("{0, -10} {1, -10}{2, -20}",
+                _firstName,
+                _lastName,
+                _accountNumber);
         }
     }
 }

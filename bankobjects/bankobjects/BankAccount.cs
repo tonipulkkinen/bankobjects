@@ -8,9 +8,9 @@ namespace bankobjects
 {
     public class BankAccount
     {
-        public string _accountNumber;
-        private List<string> _accountEvents = new List<string>();
-        public double _balance;
+        private string _accountNumber;
+        private List<AccountEvent> _accountEvents = new List<AccountEvent>();
+        private double _balance;
 
         //Constructors
         public BankAccount(string AccountNumber)
@@ -19,15 +19,32 @@ namespace bankobjects
         }
 
         //Properties
+        public double Balance
+        {
+            get { return _balance; }
+            set { _balance = value; }
+        }
+        public string AccountNumber
+        {
+            get { return _accountNumber; }
+            set { _accountNumber = value; }
+        }
 
         //Methods
-        public void NewEvent(string TimeStamp, string AccountNumber, double Sum)
+        public bool AddEvent(AccountEvent Event)
         {
-            if(AccountNumber == _accountNumber)
+            bool accept = false;
+            _accountEvents.Add(Event);
+            double currentBalance = _balance;
+            if (_accountEvents.Last().Equals(Event))
             {
-                _accountEvents.Add(TimeStamp + ", " + Sum);
-                _balance += Sum;
+                _balance += Event.Sum;
             }
+            if (_balance - Event.Sum == currentBalance)
+            {
+                accept = true;
+            }
+            return accept;
         }
     }
 }
