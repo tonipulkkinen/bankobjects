@@ -46,5 +46,13 @@ namespace bankobjects
             }
             return accept;
         }
+        public List<AccountEvent> GetEventsTimeSpan(DateTime start, DateTime end)
+        {
+            List<AccountEvent> list = (from accountevent in _accountEvents
+                                       where accountevent.TimeStamp >= start && accountevent.TimeStamp <= end
+                                       orderby accountevent.TimeStamp
+                                       select accountevent).ToList();
+            return list;
+        }
     }
 }

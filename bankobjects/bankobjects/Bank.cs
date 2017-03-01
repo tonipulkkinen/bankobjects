@@ -45,5 +45,11 @@ namespace bankobjects
                     where account.AccountNumber == AccountNumber
                     select account).FirstOrDefault().Balance;
         }
+        public List<AccountEvent> GetEvents(string AccountNumber, DateTime start, DateTime end)
+        {
+            return (from account in _accounts
+                    where account.AccountNumber == AccountNumber
+                    select account).FirstOrDefault().GetEventsTimeSpan(start, end);
+        }
     }
 }
