@@ -34,7 +34,7 @@ namespace bankobjects
             return accountNumber;
         }
         public bool NewAccountEvent(string accountNumber, AccountEvent Event)
-        {
+        {            
             return (from account in _accounts
                     where account.AccountNumber == accountNumber
                     select account).First().AddEvent(Event);
